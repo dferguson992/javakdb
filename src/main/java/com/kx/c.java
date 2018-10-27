@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package kx;
+package com.kx;
 
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
@@ -27,6 +27,8 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.UUID;
+
+import static java.util.Arrays.copyOf;
 
 /**
  * Connector class for interfacing with a kdb+ process. This class is essentially a serializer/deserializer of java types
@@ -315,7 +317,6 @@ public class c {
             return i;
         }
         
-        @Override
         public int compareTo(Month m) {
             return i - m.i;
         }
@@ -349,7 +350,6 @@ public class c {
             return i;
         }
         
-        @Override
         public int compareTo(Minute m) {
             return i - m.i;
         }
@@ -383,7 +383,6 @@ public class c {
             return i;
         }
         
-        @Override
         public int compareTo(Second s) {
             return i - s.i;
         }
@@ -436,7 +435,6 @@ public class c {
             return s + i2((int) ((jj % 86400000000000L) / 3600000000000L)) + ":" + i2((int) ((jj % 3600000000000L) / 60000000000L)) + ":" + i2((int) ((jj % 60000000000L) / 1000000000L)) + "." + i9((int) (jj % 1000000000L));
         }
         
-        @Override
         public int compareTo(Timespan t) {
             return j > t.j ? 1 : j < t.j ? -1 : 0;
         }
@@ -553,7 +551,7 @@ public class c {
         w(d);
         J = d;
         y = null;
-        B = Arrays.copyOf(B, J);
+        B = copyOf(B, J);
     }
     
     private void uncompress() {
@@ -1341,7 +1339,7 @@ public class c {
             if (b[1] == 1) // msg types are 0 - async, 1 - sync, 2 - response
                 sync++;   // an incoming sync message means the remote will expect a response message
             j = 4;
-            b = Arrays.copyOf(b, ri());
+            b = copyOf(b, ri());
             i.readFully(b, 8, b.length - 8); // read the incoming message in full
             return deserialize(b);
         }
